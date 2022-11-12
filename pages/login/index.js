@@ -51,13 +51,13 @@ export default function Login() {
             <div className={styles.error}>{error}</div>
             <form method='POST' onSubmit={handleSubmit}>
                 <label htmlFor='email'>Email</label>
-                <input type='email' name='email' onChange={handleChange} />
+                <input type='email' name='email' onChange={handleChange} required/>
                 <label htmlFor='password'>Password</label>
-                <input type='password' name='password' onChange={handleChange} />
+                <input type='password' name='password' onChange={handleChange} required/>
                 <label>
-                  <input type='checkbox' name='remember' onChange={handleChange} />Remember me?
+                  <input type='checkbox' name='remember' onChange={handleChange}/>Remember me?
                 </label>
-                <input type='submit' value='Login' />
+                <input type='submit' value='Login'/>
             </form>
             <div className={styles.forget}><a href='#'>Forget password?</a></div>
             <div className={styles.or}><span>OR</span></div>

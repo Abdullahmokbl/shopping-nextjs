@@ -46,11 +46,11 @@ export default function Signup() {
         <div className={styles.error}>{error}</div>
         <form method='POST' onSubmit={handleSubmit}>
           <label htmlFor='username'>Username</label>
-          <input type='text' name='username' onChange={handleChange}/>
+          <input type='text' name='username' onChange={handleChange} required/>
           <label htmlFor='email'>Email</label>
-          <input type='email' name='email' onChange={handleChange} />
+          <input type='email' name='email' onChange={handleChange} required/>
           <label htmlFor='password'>Password</label>
-          <input type='password' name='password' onChange={handleChange} />
+          <input type='password' name='password' onChange={handleChange} required/>
           <label htmlFor='gender' className={styles.gender} onChange={handleChange}>
             <input type='radio' name='gender' value='male' defaultChecked />Male
             <input type='radio' name='gender' value='female' />Female

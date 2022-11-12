@@ -48,13 +48,13 @@ export default function Add() {
     return(
       <form method='POST' onSubmit={handleSubmit}>
         <label htmlFor='name'>Name</label>
-        <input type='text' name='name' onChange={(e) => handleChange(e)} />
+        <input type='text' name='name' onChange={(e) => handleChange(e)} required/>
         <label htmlFor='price'>Price</label>
-        <input type='number' name='price' onChange={(e) => handleChange(e)} />
+        <input type='number' name='price' onChange={(e) => handleChange(e)} required/>
         <label htmlFor='info'>Info</label>
-        <input type='text' name='info' onChange={(e) => handleChange(e)} />
+        <input type='text' name='info' onChange={(e) => handleChange(e)} required/>
         <label htmlFor='upload-photo'>Picture</label>
-        <input type='file' name='img' id='upload-photo' onChange={(e) => handleImg(e)} />
+        <input type='file' name='img' id='upload-photo' onChange={(e) => handleImg(e)} required/>
         <input type='submit' value='Add Product' />
       </form>
     )
