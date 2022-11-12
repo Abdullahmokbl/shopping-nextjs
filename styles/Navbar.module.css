@@ -10,11 +10,13 @@
     justify-content: space-between;
 }
 .title,
+.welcome,
 .ul a{
     cursor: pointer;
     padding: 4vh;
     color: #fff;
 }
+.welcome{cursor:auto;}
 .ul{
     display: flex;
 }

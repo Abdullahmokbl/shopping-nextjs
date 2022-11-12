@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useMemo } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { delAllProducts, delProduct, getSomeProducts } from '../../redux/productsSlice';
 import { delAllUsers, delUser, getSomeUsers } from '../../redux/usersSlice';
@@ -7,23 +7,19 @@ import Pagination from '../../components/Pagination';
 import Loading from '../../components/Loading';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
-
-// export async function getStaticProps(context) {
-
-//   if(true){
-//     return {
-//       props: {}
-//     }
-//   }
-//   return {
-//     notFound: true
-//   }
-//   }
+import { useRouter } from 'next/router';
 
 export default function Admin() {
   const dispatch = useDispatch();
-  const { isLoading, someUsers, usersCount, u_pagesCount} = useSelector(state => state.users)
+  const router = useRouter();
+  const { isLoading, someUsers, usersCount, u_pagesCount, user} = useSelector(state => state.users)
   const { someProducts, productsCount, p_pagesCount} = useSelector(state => state.products)
+
+  useEffect(() => {
+    if(user){
+      if(!user.isAdmin) router.push('/404')
+    }
+  })
 
   const [userPage, setUserPage] = useState(1);
   const [productPage, setProductPage] = useState(1);
@@ -49,7 +45,7 @@ export default function Admin() {
   }
 
   let userId = userPage*5 - 5;
-  const user = someUsers.length !== 0 && someUsers.map(user => {
+  const user_info = someUsers.length !== 0 && someUsers.map(user => {
     const { _id, username, email, gender, date} = user;
     userId++;
     return(
@@ -90,7 +86,7 @@ export default function Admin() {
           <li>Created At</li>
           <li>Delete</li>
         </ul>
-        {user}
+        {user_info}
         <div className={styles.del_all} onClick={() => dispatch(delAllUsers())}>Delete All Users</div>
         <Pagination page={userPage} pagesCount={u_pagesCount} count={usersCount} previous={user_previous} next={user_next} />
       </div>
@@ -118,7 +114,7 @@ export default function Admin() {
   }
   return (
     <div className={`${styles.admin} container navpd`}>
-      <h2 className={styles.welcome}> Welcome Admin </h2>
+      <h2 className={styles.welcome}> Welcome {user && user.username} </h2>
       <h2>Users</h2>
       {someUsers.length !== 0 ? <Users /> : <h3 className={styles.no}>There is no users</h3>}
       <div className={styles.line}></div>
