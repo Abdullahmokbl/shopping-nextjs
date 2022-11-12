@@ -55,9 +55,9 @@ export default function Login() {
                 <label htmlFor='password'>Password</label>
                 <input type='password' name='password' onChange={handleChange} required/>
                 <label>
-                  <input type='checkbox' name='remember' onChange={handleChange}/>Remember me?
+                  <input type='checkbox' name='remember' onChange={handleChange} />Remember me?
                 </label>
-                <input type='submit' value='Login'/>
+                <input type='submit' value='Login' />
             </form>
             <div className={styles.forget}><a href='#'>Forget password?</a></div>
             <div className={styles.or}><span>OR</span></div>

@@ -65,6 +65,15 @@ export const delAllUsers = createAsyncThunk('users/del', async (s, {rejectWithVa
     }
 })
 
+export const sendMail = createAsyncThunk('mail/send', async (email, {rejectWithValue}) => {
+    try{
+        const res = await axios.post(process.env.NEXT_PUBLIC_API+"/mail", email);
+        return res.data;
+    }catch(e){
+        return rejectWithValue(e.response.data);
+    }
+})
+
 export const usersSlice = createSlice({
     name: 'users',
     initialState: {
@@ -140,7 +149,7 @@ export const usersSlice = createSlice({
             state.users = [];
         },
         [delAllUsers.rejected]: (state, error) => {
-        },
+        }
     }
 });
 
