@@ -21,6 +21,10 @@
     border-radius: 8px;
     color: #756d6d;
 }
+.error{
+    text-align: center;
+    color: red;
+}
 .add form label{
     color: #333;
 }

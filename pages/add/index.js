@@ -11,6 +11,7 @@ export default function Add() {
   const dispatch = useDispatch();
   const { isLoading, isAuthenticated, user } = useSelector(state => state.users)
   const seller_name = user? user.username : '';
+  const [error, setError] = useState('');
   const [ product, setProduct ] = useState({
     name: '',
     price: '',
@@ -36,8 +37,14 @@ export default function Add() {
       formData.append('product', JSON.stringify(product))
     }
     dispatch(addProduct(formData))
-      .then(() => router.push('/'))
-      .catch(e => console.log(e))
+    .unwrap()
+    .then(() => {
+      setError('')
+      router.push('/')
+    })
+    .catch( e => {
+      setError(e.msg)
+    })
   }
   const login = () => {
     return(
@@ -47,6 +54,7 @@ export default function Add() {
   const form = () => {
     return(
       <form method='POST' encType='multipart/form-data' onSubmit={handleSubmit}>
+        <div className={styles.error}>{error}</div>
         <label htmlFor='name'>Name</label>
         <input type='text' name='name' onChange={(e) => handleChange(e)} required/>
         <label htmlFor='price'>Price</label>
