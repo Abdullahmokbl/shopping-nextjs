@@ -46,7 +46,7 @@ export default function Add() {
   }
   const form = () => {
     return(
-      <form method='POST' onSubmit={handleSubmit}>
+      <form method='POST' encType='multipart/form-data' onSubmit={handleSubmit}>
         <label htmlFor='name'>Name</label>
         <input type='text' name='name' onChange={(e) => handleChange(e)} required/>
         <label htmlFor='price'>Price</label>
