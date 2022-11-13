@@ -5,10 +5,10 @@ export default function middleware(req){
     const url = req.url;
 
     if(!verify && url.includes('/admin')){
-        return NextResponse.redirect('http://localhost:3000/404')
+        return NextResponse.redirect(process.env.NEXT_PUBLIC_HOST+'/404')
     }
 
     if(verify && (url.includes('/login') || url.includes('/signup'))){
-        return NextResponse.redirect('http://localhost:3000/')
+        return NextResponse.redirect(process.env.NEXT_PUBLIC_HOST+'/')
     }
 }
