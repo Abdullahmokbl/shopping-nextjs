@@ -65,7 +65,7 @@ export default function Admin() {
     productId++;
     return(
       <ul key={_id}>
-        <li>{_id}</li>
+        <li>{productId}</li>
         <li>{name}</li>
         <li>{price}</li>
         <li>{info}</li>
