@@ -58,7 +58,7 @@
     flex-direction: column;
     /* justify-content: space-between; */
     left: 0px;
-    top: 10vh;
+    top: 9vh;
     /* bottom: 0; */
 }
 .dropdown.show{display: flex;}
