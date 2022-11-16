@@ -64,7 +64,30 @@ export const delAllUsers = createAsyncThunk('users/del', async (s, {rejectWithVa
         return rejectWithValue(e.response.data);
     }
 })
-
+export const SearchByEmail = createAsyncThunk('user/forget', async(email, {rejectWithValue}) => {
+    try{
+        const res = await axios.post(process.env.NEXT_PUBLIC_API+"/users/searchByEmail", {email});
+        return res.data;
+    }catch(e){
+        return rejectWithValue(e.response.data);
+    }
+})
+export const createCode = createAsyncThunk('code/create', async({email, mobile}, {rejectWithValue}) => {
+    try{
+        const res = await axios.post(process.env.NEXT_PUBLIC_API+"/code/create", {email, mobile});
+        return res.data;
+    }catch(e){
+        return rejectWithValue(e.response.data);
+    }
+})
+export const verifyCode = createAsyncThunk('code/verify', async({email, code}, {rejectWithValue}) => {
+    try{
+        const res = await axios.post(process.env.NEXT_PUBLIC_API+"/code/verify", {email, code});
+        return res.data;
+    }catch(e){
+        return rejectWithValue(e.response.data);
+    }
+})
 export const sendMail = createAsyncThunk('mail/send', async (email, {rejectWithValue}) => {
     try{
         const res = await axios.post(process.env.NEXT_PUBLIC_API+"/mail", email);
@@ -85,13 +108,16 @@ export const usersSlice = createSlice({
         someUsers: [],
         pageNum: null,
         u_pagesCount: null,
-        usersCount: null
+        usersCount: null,
+        email: null,
+        mobile: null
     },
     reducers: {
         logout: state => {
             deleteCookie('token')
-            state.user = null,
-            state.isAuthenticated = false
+            state.token = null;
+            state.user = null;
+            state.isAuthenticated = false;
         }
     },
     extraReducers: {
@@ -105,50 +131,49 @@ export const usersSlice = createSlice({
         },
         [loadUser.rejected]: (state, error) => {
             state.isLoading = false;
-            deleteCookie('token')
+            deleteCookie('token');
+            state.token = null;
         },
-        [signup.pending]: state => {},
         [signup.fulfilled]: (state, action) => {
+            state.email = action.payload.email
+        },
+        [verifyCode.fulfilled]: (state, action) => {
             setCookie('token', action.payload.token)
             state.isAuthenticated = true;
             state.user = action.payload.user;
             state.token = action.payload.token;
             state.users.push(action.payload.user)
         },
-        [signup.rejected]: (state, error) => {},
-        [login.pending]: state => {},
         [login.fulfilled]: (state, action) => {
-            setCookie('token', action.payload.token)
-            state.isAuthenticated = true;
-            state.user = action.payload.user;
-            state.token = action.payload.token
+            if(action.payload.email){
+                state.email = action.payload.email
+            }else{
+                setCookie('token', action.payload.token)
+                state.isAuthenticated = true;
+                state.user = action.payload.user;
+                state.token = action.payload.token
+            }
         },
-        [login.rejected]: (state, error) => {},
-        [getUsers.pending]: state => {},
         [getUsers.fulfilled]: (state, action) => {
             state.users = action.payload;
         },
         [getUsers.rejected]: (state, error) => {},
-        [getSomeUsers.pending]: state => {},
         [getSomeUsers.fulfilled]: (state, action) => {
             state.someUsers = action.payload.users;
             state.u_pagesCount = action.payload.pagesCount;
             state.usersCount = action.payload.usersCount;
         },
-        [getSomeUsers.rejected]: (state, error) => {},
-        [delUser.pending]: state => {},
         [delUser.fulfilled]: (state, action) => {
             return {
                 ...state,
                 someUsers: [...state.someUsers].filter(p => p._id !== action.payload)
             }
         },
-        [delUser.rejected]: (state, error) => {},
-        [delAllUsers.pending]: state => {},
         [delAllUsers.fulfilled]: (state, action) => {
             state.users = [];
         },
-        [delAllUsers.rejected]: (state, error) => {
+        [SearchByEmail.fulfilled]: (state, action) => { 
+            state.email = action.payload.email
         }
     }
 });

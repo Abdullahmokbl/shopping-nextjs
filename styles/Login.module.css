@@ -12,11 +12,8 @@
     border-radius: 8px;
     color: #756d6d;
 }
-.error{
-    text-align: center;
-    color: red;
-}
-.login form input{
+.login form input,
+.login form button{
     display: block;
     padding: 1em;
     border-radius: 8px;
@@ -33,7 +30,7 @@
     margin-bottom: 2em;
     margin-top: 1em;
 }
-.login form input[type='submit']{
+.login form button{
     background-color: #ee5684;
     color: white;
     font-weight: bold;

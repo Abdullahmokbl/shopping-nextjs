@@ -6,11 +6,14 @@ import { signup } from '../../redux/usersSlice';
 import { useRouter } from 'next/router';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGoogle, faFacebookF, faLinkedinIn } from '@fortawesome/free-brands-svg-icons';
+import Head from 'next/head';
+import { faSpinner } from '@fortawesome/free-solid-svg-icons';
 
 export default function Signup() {
   const dispatch = useDispatch();
   const router = useRouter();
 
+  const [disabled, setDisabled] = useState(false);
   const [error, setError] = useState('');
   const [user, setUser] = useState({
     username: '',
@@ -28,22 +31,24 @@ export default function Signup() {
 
   const handleSubmit = e => {
     e.preventDefault();
+    setDisabled(true);
     dispatch(signup(user))
     .unwrap()
     .then(() => {
-      setError('')
-      router.push('/')
+      router.push('/code')
     })
     .catch( e => {
-      setError(e.msg)
+      setError(e.msg);
+      setDisabled(false)
     })
   }
 
   return (
     <div className={styles.page}>
+      <Head><title>Forgetten password</title></Head>
       <div className={styles.signup}>
         <h3>Signup</h3>
-        <div className={styles.error}>{error}</div>
+        <div className='error'>{error}</div>
         <form method='POST' onSubmit={handleSubmit}>
           <label htmlFor='username'>Username</label>
           <input type='text' name='username' onChange={handleChange} required/>
@@ -55,7 +60,7 @@ export default function Signup() {
             <input type='radio' name='gender' value='male' defaultChecked />Male
             <input type='radio' name='gender' value='female' />Female
           </label>
-          <input type='submit' value='SIGN UP' />
+          <button type='submit' disabled={disabled} style={disabled? {opacity: .5,cursor: 'initial'}:{opacity: 1,cursor:'pointer'}} >{disabled? <FontAwesomeIcon icon={faSpinner} size='xl' spin/>:'Sign Up'}</button>
         </form>
         <div className={styles.or}>
           <span>OR</span>

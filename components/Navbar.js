@@ -48,6 +48,8 @@ export default function Navbar() {
             <div className={styles.line}></div>
             {!isAuthenticated && <Link href='login' onClick={()=> setShowdp(false)}>Login</Link>}
             {!isAuthenticated && <Link href='signup' onClick={()=> setShowdp(false)}>Sign up</Link>}
+            {isAuthenticated && <Link href=''>Welcome {user && user.username}</Link>}
+            {isAuthenticated && <Link href='login' onClick={()=> setShowdp(false)}>Logout</Link>}
             </div>
         </div>
     </nav>

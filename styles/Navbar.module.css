@@ -13,7 +13,7 @@
 .welcome,
 .ul a{
     cursor: pointer;
-    padding: 4vh;
+    padding: 3vh;
     color: #fff;
 }
 .welcome{cursor:auto;}
@@ -58,7 +58,7 @@
     flex-direction: column;
     /* justify-content: space-between; */
     left: 0px;
-    top: 11vh;
+    top: 10vh;
     /* bottom: 0; */
 }
 .dropdown.show{display: flex;}

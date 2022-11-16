@@ -12,11 +12,8 @@
     padding: 3em;
     color: #756d6d;
 }
-.error{
-    text-align: center;
-    color: red;
-}
-.signup input{
+.signup input,
+.signup button{
     display: block;
     border: 1px solid rgb(185, 163, 163);
     border-radius: 8px;
@@ -29,7 +26,7 @@
     display: flex;
 }
 .gender input{width: auto;}
-.signup form input[type='submit']{
+.signup form button{
     background-color: #ee5684;
     color: white;
     font-weight: bold;

@@ -5,12 +5,15 @@ import { useDispatch, useSelector } from 'react-redux';
 import { addProduct } from '../../redux/productsSlice';
 import styles from '../../styles/Add.module.css';
 import Loading from '../../components/Loading';
+import { faSpinner } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 export default function Add() {
   const router = useRouter();
   const dispatch = useDispatch();
   const { isLoading, isAuthenticated, user } = useSelector(state => state.users)
   const seller_name = user? user.username : '';
+  const [disabled, setDisabled] = useState(false);
   const [error, setError] = useState('');
   const [ product, setProduct ] = useState({
     name: '',
@@ -36,6 +39,7 @@ export default function Add() {
       formData.append('img', img);
       formData.append('product', JSON.stringify(product))
     }
+    setDisabled(true);
     dispatch(addProduct(formData))
     .unwrap()
     .then(() => {
@@ -43,7 +47,8 @@ export default function Add() {
       router.push('/')
     })
     .catch( e => {
-      setError(e.msg)
+      setError(e.msg);
+      setDisabled(false);
     })
   }
   const login = () => {
@@ -54,7 +59,7 @@ export default function Add() {
   const form = () => {
     return(
       <form method='POST' encType='multipart/form-data' onSubmit={handleSubmit}>
-        <div className={styles.error}>{error}</div>
+        <div className='error'>{error}</div>
         <label htmlFor='name'>Name</label>
         <input type='text' name='name' onChange={(e) => handleChange(e)} required/>
         <label htmlFor='price'>Price</label>
@@ -63,7 +68,7 @@ export default function Add() {
         <input type='text' name='info' onChange={(e) => handleChange(e)} required/>
         <label htmlFor='upload-photo'>Picture</label>
         <input type='file' name='img' id='upload-photo' onChange={(e) => handleImg(e)} required/>
-        <input type='submit' value='Add Product' />
+        <button type='submit' disabled={disabled} style={disabled? {opacity: .5,cursor: 'initial'}:{opacity: 1,cursor:'pointer'}} >{disabled? <FontAwesomeIcon icon={faSpinner} size='xl' spin/>:'Add Product'}</button>
       </form>
     )
   }

@@ -6,11 +6,14 @@ import { login } from '../../redux/usersSlice';
 import { useRouter } from 'next/router';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGoogle, faFacebookF, faLinkedinIn } from '@fortawesome/free-brands-svg-icons';
+import Head from 'next/head';
+import { faSpinner } from '@fortawesome/free-solid-svg-icons';
 
 export default function Login() {
   const dispatch = useDispatch();
   const router = useRouter();
 
+  const [disabled, setDisabled] = useState(false);
   const [error, setError] = useState('');
   const [user, setUser] = useState({
     email: '',
@@ -34,21 +37,25 @@ export default function Login() {
 
   const handleSubmit = async e => {
     e.preventDefault();
+    setDisabled(true);
     dispatch(login(user))
     .unwrap()
-    .then(() => {
+    .then((res) => {
       setError('')
-      router.push('/')
+      if(!res.token) router.push('/code')
+      else router.push('/')
     })
     .catch( e => {
-      setError(e.msg)
+      setError(e.msg);
+      setDisabled(false);
     })
   }
   return (
     <div className={styles.page}>
+      <Head><title>Forgetten password</title></Head>
         <div className={styles.login}>
             <h3>Login</h3>
-            <div className={styles.error}>{error}</div>
+            <div className='error'>{error}</div>
             <form method='POST' onSubmit={handleSubmit}>
                 <label htmlFor='email'>Email</label>
                 <input type='email' name='email' onChange={handleChange} required/>
@@ -57,9 +64,9 @@ export default function Login() {
                 <label>
                   <input type='checkbox' name='remember' onChange={handleChange} />Remember me?
                 </label>
-                <input type='submit' value='Login' />
+                <button type='submit' disabled={disabled} style={disabled? {opacity: .5,cursor: 'initial'}:{opacity: 1,cursor:'pointer'}} >{disabled? <FontAwesomeIcon icon={faSpinner} size='xl' spin/>:'Login'}</button>
             </form>
-            <div className={styles.forget}><a href='#'>Forget password?</a></div>
+            <div className={styles.forget}><Link href='identify'>Forget password?</Link></div>
             <div className={styles.or}><span>OR</span></div>
             <div className={styles.svg}>
               <a><FontAwesomeIcon icon={faGoogle} size='xl'/></a>

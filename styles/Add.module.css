@@ -21,14 +21,11 @@
     border-radius: 8px;
     color: #756d6d;
 }
-.error{
-    text-align: center;
-    color: red;
-}
 .add form label{
     color: #333;
 }
-.add form input{
+.add form input,
+.add form button{
     display: block;
     border: 1px solid rgb(185, 163, 163);
     border-radius: 8px;
@@ -37,7 +34,7 @@
     margin-bottom: 2em;
     cursor: pointer;
 }
-.add form input[type='submit']{
+.add form button{
     background-color: #ee5684;
     color: white;
     font-weight: bold;
@@ -45,6 +42,6 @@
     margin-bottom: 1em;
     /* transition: all .4s ease-in-out 0s; */
 }
-.add form input[type='submit']:hover{
+.add form button:hover{
     background-color: #db2058;
 }
