@@ -55,7 +55,7 @@ export default function Admin() {
         <li>{email}</li>
         <li>{gender? 'Male': 'Female'}</li>
         <li>{new Date(date).toDateString()}</li>
-        <li><div className={styles.delete} onClick={() => dispatch(delUser(_id))}><FontAwesomeIcon icon={faTrash} size='xl' /></div></li>
+        <li><div className={styles.delete} onClick={() => {if(confirm('Do you really want do delete '+username)) dispatch(delUser(_id))}}><FontAwesomeIcon icon={faTrash} size='xl' /></div></li>
       </ul>
     )
   })
@@ -70,7 +70,7 @@ export default function Admin() {
         <li>{price}</li>
         <li>{info}</li>
         <li>{seller}</li>
-        <li><div className={styles.delete} onClick={() => dispatch(delProduct(_id))}><FontAwesomeIcon icon={faTrash} size='xl' /></div></li>
+        <li><div className={styles.delete} onClick={() => {if(confirm('Do you really want do delete '+name)) dispatch(delProduct(_id))}}><FontAwesomeIcon icon={faTrash} size='xl' /></div></li>
       </ul>
     )
   })
@@ -87,7 +87,7 @@ export default function Admin() {
           <li>Delete</li>
         </ul>
         {user_info}
-        <div className={styles.del_all} onClick={() => dispatch(delAllUsers())}>Delete All Users</div>
+        <div className={styles.del_all} onClick={() => {if(confirm('Do you really want do delete all users')) dispatch(delAllUsers())}}>Delete All Users</div>
         <Pagination page={userPage} pagesCount={u_pagesCount} count={usersCount} previous={user_previous} next={user_next} />
       </div>
     )
@@ -104,7 +104,7 @@ export default function Admin() {
         <li>Delete</li>
         </ul>
         {product}
-        <div className={styles.del_all} onClick={() => dispatch(delAllProducts())}>Delete All Products</div>
+        <div className={styles.del_all} onClick={() => {if(confirm('Do you really want do delete all products')) dispatch(delAllProducts())}}>Delete All Products</div>
         <Pagination page={productPage} pagesCount={p_pagesCount} count={productsCount} previous={product_previous} next={product_next} />
       </div>
     )
@@ -123,3 +123,4 @@ export default function Admin() {
     </div>
   )
 }
+
