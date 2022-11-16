@@ -28,12 +28,19 @@
 }
 .admin ul:first-of-type li{background-color: #741e1e;}
 
-.admin ul li:first-of-type{flex: 1;}
-.admin ul li:nth-of-type(2){flex: 3;}
-.admin ul li:nth-of-type(3){flex: 5;}
-.admin ul li:nth-of-type(4){flex: 1.5;}
-.admin ul li:nth-of-type(5){flex: 2.5;}
-.admin ul li:nth-of-type(6){flex: 1;}
+.users ul li:first-of-type{flex: 1;}
+.users ul li:nth-of-type(2){flex: 3;}
+.users ul li:nth-of-type(3){flex: 5;}
+.users ul li:nth-of-type(4){flex: 1.5;}
+.users ul li:nth-of-type(5){flex: 2.5;}
+.users ul li:nth-of-type(6){flex: 1;}
+
+.products ul li:first-of-type{flex: 1;}
+.products ul li:nth-of-type(2){flex: 3;}
+.products ul li:nth-of-type(4){flex: 5;}
+.products ul li:nth-of-type(3){flex: 1.5;}
+.products ul li:nth-of-type(5){flex: 2.5;}
+.products ul li:nth-of-type(6){flex: 1;}
 
 .admin ul li span{cursor: pointer;}
 .delete{
