@@ -7,7 +7,7 @@ module.exports = nextConfig
 
 module.exports = {
   images: {
-    domains: ['https://node-server-version-1.herokuapp.com'],
+    domains: ['node-server-version-1.herokuapp.com'],
   },
 }
 
