@@ -31,8 +31,20 @@ export const getProduct = createAsyncThunk('product/get', async (id) => {
     return res.data;
 })
 export const addProduct = createAsyncThunk('product/add', async (product, {rejectWithValue}) => {
+    // get token
+    const token = getCookie('token')
+    
+    let axiosConfig = {
+        headers: {
+            'Content-Type': 'application/json;charset=UTF-8',
+            'Access-Control-Allow-Origin': '*',
+        }
+    }
+
+    if (token) axiosConfig.headers['x-auth-token'] = token;
+
     try{
-        const res = await axios.post(process.env.NEXT_PUBLIC_API+"/products/product", product, addToken());
+        const res = await axios.post(process.env.NEXT_PUBLIC_API+"/products/product", product, axiosConfig);
         return res.data;
     }catch(e){
         return rejectWithValue(e.response.data);
